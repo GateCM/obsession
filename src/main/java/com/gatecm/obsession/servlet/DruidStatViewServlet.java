@@ -24,5 +24,5 @@ import com.alibaba.druid.support.http.StatViewServlet;
 })
 public class DruidStatViewServlet extends StatViewServlet {
 	private static final long serialVersionUID = -2688872071445249539L;
-
+	
 }
