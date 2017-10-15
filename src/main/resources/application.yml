@@ -38,9 +38,9 @@ spring:
             
     
 #mybatis
-mybatis:
-  config-location: mapper/*Mapper.xml
-  mybatis.typeAliasesPackage: com.gatecm.obsession.entity
+#mybatis:
+  #config-location: mapper/*Mapper.xml
+  #mybatis.typeAliasesPackage: com.gatecm.obsession.entity
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml

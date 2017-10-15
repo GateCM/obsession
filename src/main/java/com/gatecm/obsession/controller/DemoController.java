@@ -37,11 +37,11 @@ public class DemoController {
 		log.info(DemoController.class.getSimpleName() + "==index test");
 
 		userService.test();
-		User user = userService.selectById(54L);
+		User user = userService.selectById(9L);
 		System.err.println(user.getNickname());
 		System.err.println("===================");
 		modelAndView.addObject("a", user);
-		modelAndView.setViewName("index");
+		modelAndView.setViewName("portals/index");
 		return modelAndView;
 	}
 
