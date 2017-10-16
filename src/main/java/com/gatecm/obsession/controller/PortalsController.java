@@ -43,8 +43,8 @@ public class PortalsController {
 
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
-
-		if (subject.isPermitted("/portals/ethereal")) {
+		
+		if (subject.hasRole("供应商")) {
 			modelAndView.setViewName("ethereal/index");
 		} else {
 			modelAndView.setViewName("portals/index");
