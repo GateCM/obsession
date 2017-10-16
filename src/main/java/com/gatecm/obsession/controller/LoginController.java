@@ -13,6 +13,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,22 +41,28 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String login(String userName, String password) {
+	@ResponseBody
+	public Map<String, Object> login(String userName, String password) {
+		Map<String, Object> map = new HashMap<>();
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
 		// 获取当前的Subject
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
 		} catch (Exception e) {
-			return "redirect:/login/page";
+			map.put("result", false);
 		}
 		// 验证是否登录成功
 		if (currentUser.isAuthenticated()) {
-			return "redirect:/portals/index";
+			Subject subject = SecurityUtils.getSubject();
+			Session session = subject.getSession();
+			map.put("result", true);
+			map.put("token", session.getId());
 		} else {
+			map.put("result", false);
 			token.clear();
-			return "redirect:/login/page";
 		}
+		return map;
 	}
 
 }

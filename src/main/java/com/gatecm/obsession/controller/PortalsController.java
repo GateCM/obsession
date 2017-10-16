@@ -3,6 +3,10 @@
  */
 package com.gatecm.obsession.controller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +26,12 @@ public class PortalsController {
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView();
 
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+
+		System.err.println(session.getHost());
+		System.err.println(session.getId());
+
 		modelAndView.addObject("test", "hello");
 		modelAndView.setViewName("portals/index");
 		return modelAndView;
@@ -31,8 +41,15 @@ public class PortalsController {
 	public ModelAndView etherealIndex() {
 		ModelAndView modelAndView = new ModelAndView();
 
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+
+		if (subject.isPermitted("/portals/ethereal")) {
+			modelAndView.setViewName("ethereal/index");
+		} else {
+			modelAndView.setViewName("portals/index");
+		}
 		modelAndView.addObject("test", "hello");
-		modelAndView.setViewName("ethereal/index");
 		return modelAndView;
 	}
 

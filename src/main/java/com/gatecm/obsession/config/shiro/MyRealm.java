@@ -3,8 +3,6 @@
  */
 package com.gatecm.obsession.config.shiro;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +14,6 @@ import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -52,15 +49,16 @@ public class MyRealm extends AuthorizingRealm {
 		Long userId = user.getId();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		// 根据用户ID查询角色（role），放入到Authorization里。
-		/*
-		 * Map<String, Object> map = new HashMap<String, Object>();
-		 * map.put("user_id", userId); List<SysRole> roleList =
-		 * sysRoleService.selectByMap(map); Set<String> roleSet = new
-		 * HashSet<String>(); for(SysRole role : roleList){
-		 * roleSet.add(role.getType()); }
-		 */ // 实际开发，当前登录用户的角色和权限信息是从数据库来获取的，我这里写死是为了方便测试
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("user_id", userId);
+//		List<SysRole> roleList = sysRoleService.selectByMap(map);
+//		Set<String> roleSet = new HashSet<String>();
+//		for (SysRole role : roleList) {
+//			roleSet.add(role.getType());
+//		}
+		// 实际开发，当前登录用户的角色和权限信息是从数据库来获取的
 		Set<String> roleSet = new HashSet<String>();
-		roleSet.add("100002");
+		roleSet.add("供应商");
 		info.setRoles(roleSet);
 		// 根据用户ID查询权限（permission），放入到Authorization里。
 		/*
@@ -70,7 +68,7 @@ public class MyRealm extends AuthorizingRealm {
 		 * permissionList){ permissionSet.add(Permission.getName()); }
 		 */
 		Set<String> permissionSet = new HashSet<String>();
-		permissionSet.add("权限添加");
+		permissionSet.add("/portals/ethereal");
 		info.setStringPermissions(permissionSet);
 		return info;
 	}
