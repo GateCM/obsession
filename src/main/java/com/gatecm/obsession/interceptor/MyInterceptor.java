@@ -23,7 +23,7 @@ public class MyInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-//		log.info(MyInterceptor.class.getSimpleName() + "==preHandle");
+		log.info(MyInterceptor.class.getSimpleName() + "==>preHandle: "+"preHandle:URI [" + request.getRequestURI() + "], Request Mapping [" + handler + "]");
 		return true;
 	}
 

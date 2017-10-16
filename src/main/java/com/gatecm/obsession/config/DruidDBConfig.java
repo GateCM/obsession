@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ import com.alibaba.druid.pool.DruidDataSource;
  *
  */
 @Configuration
+@MapperScan({ "com.gatecm.obsession.mapper*" })
 public class DruidDBConfig {
 	private Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
 

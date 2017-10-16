@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>用户登录</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="/plugin/bootstrap/bootstrap.min.css"
+	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
+<style>
+body {
+	margin-left: auto;
+	margin-right: auto;
+	margin-TOP: 100PX;
+	width: 20em;
+}
+</style>
+</head>
+<body>
+	<form th:action="@{/login}" method="POST">
+		<!--下面是用户名输入框-->
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">@</span> <input
+				id="userName" name="userName" type="text" class="form-control"
+				value="中转站" placeholder="用户名" aria-describedby="basic-addon1" />
+		</div>
+		<br />
+		<!--下面是密码输入框-->
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">@</span> <input
+				id="password" name="password" type="text" class="form-control"
+				value="12345" placeholder="密码" aria-describedby="basic-addon1" />
+		</div>
+		<br />
+		<!--下面是登陆按钮,包括颜色控制-->
+		<button type="submit" style="width: 280px;" class="btn btn-default">登
+			录</button>
+	</form>
+
+	<script th:src="@{/plugin/jquery/jquery.min.js}"></script>
+	<script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+
+</body>
+</html>

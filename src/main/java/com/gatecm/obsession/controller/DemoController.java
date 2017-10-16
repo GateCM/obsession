@@ -36,8 +36,7 @@ public class DemoController {
 		ModelAndView modelAndView = new ModelAndView();
 		log.info(DemoController.class.getSimpleName() + "==index test");
 
-		userService.test();
-		User user = userService.selectById(9L);
+		User user = userService.selectById(1L);
 		System.err.println(user.getNickname());
 		System.err.println("===================");
 		modelAndView.addObject("a", user);

@@ -1,6 +1,6 @@
 package com.gatecm.obsession.mapper;
 
-import com.gatecm.obsession.entity.User;
+import com.gatecm.obsession.entity.UserRole;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author chenxiaohui
  * @since 2017-10-16
  */
-public interface UserDao extends BaseMapper<User> {
+public interface UserRoleDao extends BaseMapper<UserRole> {
 
 }

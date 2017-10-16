@@ -25,7 +25,8 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		// addPathPatterns 用于添加拦截规则
 		// excludePathPatterns 用于排除拦截
-		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/error", "/error");
+		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page",
+				"/error","/**/*.css","/**/*.js","/**/*.css");
 		super.addInterceptors(registry);
 	}
 
