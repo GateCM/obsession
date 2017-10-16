@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.gatecm.obsession.interceptor.MyInterceptor;
+import com.gatecm.obsession.interceptor.ShiroInterceptor;
 
 /**
  * @Description: TODO()
@@ -26,7 +27,9 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
 		// addPathPatterns 用于添加拦截规则
 		// excludePathPatterns 用于排除拦截
 		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page",
-				"/error","/**/*.css","/**/*.js","/**/*.css");
+				"/error","*.png","*.js","*.css");
+		registry.addInterceptor(new ShiroInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page",
+				"/error","*.png","*.js","*.css");
 		super.addInterceptors(registry);
 	}
 
