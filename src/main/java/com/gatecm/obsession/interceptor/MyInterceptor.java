@@ -26,20 +26,19 @@ public class MyInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Subject currentUser = SecurityUtils.getSubject();
-		log.info(MyInterceptor.class.getSimpleName() + "==>preHandle: "+"preHandle:URI [" + request.getRequestURI() + "], Request Mapping [" + handler + "]");
+		log.info(MyInterceptor.class.getSimpleName() + "==>preHandle: " + "preHandle:URI [" + request.getRequestURI()
+				+ "], Request Mapping [" + handler + "]");
 		return true;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-//		log.info(MyInterceptor.class.getSimpleName() + "==postHandle");
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-//		log.info(MyInterceptor.class.getSimpleName() + "==afterCompletion");
 	}
 
 }

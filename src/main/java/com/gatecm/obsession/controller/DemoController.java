@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.druid.sql.visitor.functions.Ucase;
-import com.gatecm.obsession.entity.User;
-import com.gatecm.obsession.service.UserService;
-
 /**
  * @Description: TODO()
  * @author chenxiaohui
@@ -26,8 +22,8 @@ import com.gatecm.obsession.service.UserService;
 @RequestMapping(value = "/index")
 public class DemoController {
 
-	@Autowired
-	private UserService userService;
+	// @Autowired
+	// private UserService userService;
 
 	private static final Logger log = LoggerFactory.getLogger(DemoController.class);
 
@@ -36,10 +32,10 @@ public class DemoController {
 		ModelAndView modelAndView = new ModelAndView();
 		log.info(DemoController.class.getSimpleName() + "==index test");
 
-		User user = userService.selectById(1L);
-		System.err.println(user.getNickname());
-		System.err.println("===================");
-		modelAndView.addObject("a", user);
+		// User user = userService.selectById(1L);
+		// System.err.println(user.getNickname());
+		// System.err.println("===================");
+		// modelAndView.addObject("a", user);
 		modelAndView.setViewName("portals/index");
 		return modelAndView;
 	}

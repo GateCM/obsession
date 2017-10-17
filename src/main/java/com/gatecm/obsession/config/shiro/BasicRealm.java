@@ -25,8 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.gatecm.obsession.entity.User;
-import com.gatecm.obsession.mapper.UserDao;
+import com.gatecm.obsession.entity.Member;
+import com.gatecm.obsession.mapper.MemberDao;
 
 /**
  * @Description: TODO()
@@ -38,7 +38,7 @@ import com.gatecm.obsession.mapper.UserDao;
 public class BasicRealm extends AuthorizingRealm {
 
 	@Autowired
-	private UserDao userDao;
+	private MemberDao memberDao;
 
 	/**
 	 * 授权
@@ -46,7 +46,7 @@ public class BasicRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		System.out.println("权限认证方法：MyShiroRealm.doGetAuthenticationInfo()");
-		User user = (User) SecurityUtils.getSubject().getPrincipal();
+		Member user = (Member) SecurityUtils.getSubject().getPrincipal();
 		Long userId = user.getId();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		// 根据用户ID查询角色（role），放入到Authorization里。
@@ -90,8 +90,8 @@ public class BasicRealm extends AuthorizingRealm {
 		Map<String, Object> columnMap = new HashMap<String, Object>();
 		
 		columnMap.put("nickname", token.getUsername());
-		List<User> users = userDao.selectByMap(columnMap);
-		User user;
+		List<Member> users = memberDao.selectByMap(columnMap);
+		Member user;
 		if (CollectionUtils.isEmpty(users)) {
 			throw new AccountException("帐号或密码不正确！");
 		} else {

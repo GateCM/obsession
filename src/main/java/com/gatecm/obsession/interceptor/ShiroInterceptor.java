@@ -47,7 +47,6 @@ public class ShiroInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// log.info(MyInterceptor.class.getSimpleName() + "==postHandle");
 	}
 
 	@Override

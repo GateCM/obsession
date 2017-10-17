@@ -13,10 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.alibaba.druid.sql.ast.expr.SQLExistsExpr;
-import com.gatecm.obsession.entity.User;
-import com.gatecm.obsession.service.UserService;
-
 import junit.framework.TestCase;
 
 @RunWith(SpringRunner.class)
@@ -24,13 +20,12 @@ import junit.framework.TestCase;
 public class ObsessionApplicationTests extends TestCase {
 
 	@Autowired
-	private UserService userService;
+	// private MemberService memberService;
 
-	
 	@Test
 	public void contextLoads() {
-		System.err.println(userService);
-		User user = userService.selectById(9L);
+		// System.err.println(userService);
+		// User user = userService.selectById(9L);
 	}
 
 	@Test

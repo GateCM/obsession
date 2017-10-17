@@ -8,8 +8,6 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
-import com.gatecm.obsession.entity.User;
-
 /**
  * @Description: TODO()
  * @author chenxiaohui
@@ -29,19 +27,15 @@ public class PasswordHelper {
 		passwordAndSalt.setPassword(newPassword);
 		return passwordAndSalt;
 	}
-	
-	public static String decryptPassword(String password,String salt) {
+
+	public static String decryptPassword(String password, String salt) {
 		return new SimpleHash(ShiroConstant.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt),
 				ShiroConstant.HASH_ITERATIONS).toHex();
 	}
 
 	public static void main(String[] args) {
-		User user = new User();
-		user.setPswd("12345");
-		System.err.println(user.getPswd());
-		PasswordEntity passwordAndSalt = PasswordHelper.encryptPassword(user.getPswd());
+		PasswordEntity passwordAndSalt = PasswordHelper.encryptPassword("12345");
 		System.err.println(passwordAndSalt.toString());
-		
 		System.err.println(PasswordHelper.decryptPassword("0000", "08923075514e1d7a2161cf6cf9749c57"));
 	}
 
