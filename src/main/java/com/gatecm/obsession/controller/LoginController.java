@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gatecm.obsession.config.shiro.PasswordHelper;
 import com.gatecm.obsession.entity.User;
 
 /**
@@ -45,12 +46,14 @@ public class LoginController {
 	public Map<String, Object> login(String userName, String password) {
 		Map<String, Object> map = new HashMap<>();
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-		// 获取当前的Subject
+		// 获取当前的Subject+
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
-		} catch (Exception e) {
+		} catch (IncorrectCredentialsException e) {
+			e.printStackTrace();
 			map.put("result", false);
+			return map;
 		}
 		// 验证是否登录成功
 		if (currentUser.isAuthenticated()) {

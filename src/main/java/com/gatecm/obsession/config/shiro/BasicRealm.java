@@ -20,6 +20,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +35,7 @@ import com.gatecm.obsession.mapper.UserDao;
  *
  */
 @Repository
-public class MyRealm extends AuthorizingRealm {
+public class BasicRealm extends AuthorizingRealm {
 
 	@Autowired
 	private UserDao userDao;
@@ -49,13 +50,13 @@ public class MyRealm extends AuthorizingRealm {
 		Long userId = user.getId();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		// 根据用户ID查询角色（role），放入到Authorization里。
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("user_id", userId);
-//		List<SysRole> roleList = sysRoleService.selectByMap(map);
-//		Set<String> roleSet = new HashSet<String>();
-//		for (SysRole role : roleList) {
-//			roleSet.add(role.getType());
-//		}
+		// Map<String, Object> map = new HashMap<String, Object>();
+		// map.put("user_id", userId);
+		// List<SysRole> roleList = sysRoleService.selectByMap(map);
+		// Set<String> roleSet = new HashSet<String>();
+		// for (SysRole role : roleList) {
+		// roleSet.add(role.getType());
+		// }
 		// 实际开发，当前登录用户的角色和权限信息是从数据库来获取的
 		Set<String> roleSet = new HashSet<String>();
 		roleSet.add("供应商");
@@ -68,7 +69,7 @@ public class MyRealm extends AuthorizingRealm {
 		 * permissionList){ permissionSet.add(Permission.getName()); }
 		 */
 		Set<String> permissionSet = new HashSet<String>();
-		permissionSet.add("/portals/ethereal");
+		permissionSet.add("/portals/index");
 		info.setStringPermissions(permissionSet);
 		return info;
 	}
@@ -85,7 +86,9 @@ public class MyRealm extends AuthorizingRealm {
 			throws AuthenticationException {
 		System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+		
 		Map<String, Object> columnMap = new HashMap<String, Object>();
+		
 		columnMap.put("nickname", token.getUsername());
 		List<User> users = userDao.selectByMap(columnMap);
 		User user;
@@ -94,7 +97,7 @@ public class MyRealm extends AuthorizingRealm {
 		} else {
 			user = users.get(0);
 		}
-		return new SimpleAuthenticationInfo(user, user.getPswd(), getName());
+		return new SimpleAuthenticationInfo(user, user.getPswd(), ByteSource.Util.bytes(user.getSalt()), getName());
 	}
 
 }

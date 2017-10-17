@@ -21,37 +21,38 @@ import java.io.Serializable;
 @TableName("u_user")
 public class User extends Model<User> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	@TableId(value="id", type= IdType.AUTO)
+	@TableId(value = "id", type = IdType.AUTO)
 	private Long id;
-    /**
-     * 用户昵称
-     */
+	/**
+	 * 用户昵称
+	 */
 	private String nickname;
-    /**
-     * 邮箱|登录帐号
-     */
+	/**
+	 * 邮箱|登录帐号
+	 */
 	private String email;
-    /**
-     * 密码
-     */
+	/**
+	 * 密码
+	 */
 	private String pswd;
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	@TableField("create_time")
 	private Date createTime;
-    /**
-     * 最后登录时间
-     */
+	/**
+	 * 最后登录时间
+	 */
 	@TableField("last_login_time")
 	private Date lastLoginTime;
-    /**
-     * 1:有效，0:禁止登录
-     */
+	/**
+	 * 1:有效，0:禁止登录
+	 */
 	private Long status;
 
+	private String salt;
 
 	public Long getId() {
 		return id;
@@ -116,14 +117,16 @@ public class User extends Model<User> {
 
 	@Override
 	public String toString() {
-		return "User{" +
-			", id=" + id +
-			", nickname=" + nickname +
-			", email=" + email +
-			", pswd=" + pswd +
-			", createTime=" + createTime +
-			", lastLoginTime=" + lastLoginTime +
-			", status=" + status +
-			"}";
+		return "User{" + ", id=" + id + ", nickname=" + nickname + ", email=" + email + ", pswd=" + pswd
+				+ ", createTime=" + createTime + ", lastLoginTime=" + lastLoginTime + ", status=" + status + "}";
 	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
 }

@@ -65,7 +65,7 @@ public class ShiroConfig {
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		// 设置realm.
-		securityManager.setRealm(myRealm());
+		securityManager.setRealm(basicRealm());
 		return securityManager;
 	}
 
@@ -78,8 +78,8 @@ public class ShiroConfig {
 	@Bean
 	public HashedCredentialsMatcher hashedCredentialsMatcher() {
 		HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-		hashedCredentialsMatcher.setHashAlgorithmName("md5");// 散列算法:这里使用MD5算法;
-		hashedCredentialsMatcher.setHashIterations(2);// 散列的次数，比如散列两次，相当于md5(md5(""));
+		hashedCredentialsMatcher.setHashAlgorithmName(ShiroConstant.ALGORITHM_NAME);// 散列算法:这里使用MD5算法;
+		hashedCredentialsMatcher.setHashIterations(ShiroConstant.HASH_ITERATIONS);// 散列的次数，比如散列两次，相当于md5(md5(""));
 		return hashedCredentialsMatcher;
 	}
 
@@ -89,8 +89,9 @@ public class ShiroConfig {
 	 * @return
 	 */
 	@Bean
-	public MyRealm myRealm() {
-		MyRealm myShiroRealm = new MyRealm();
-		return myShiroRealm;
+	public BasicRealm basicRealm() {
+		BasicRealm basicRealm = new BasicRealm();
+		basicRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+		return basicRealm;
 	}
 }

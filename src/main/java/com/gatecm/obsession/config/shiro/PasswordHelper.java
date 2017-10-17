@@ -17,16 +17,32 @@ import com.gatecm.obsession.entity.User;
  *
  */
 public class PasswordHelper {
-	private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-	private String algorithmName = "md5";
-	private final int hashIterations = 2;
 
-//	public void encryptPassword(User user) {
-//		// User对象包含最基本的字段Username和Password
-//		user.setSalt(randomNumberGenerator.nextBytes().toHex());
-//		// 将用户的注册密码经过散列算法替换成一个不可逆的新密码保存进数据，散列过程使用了盐
-//		String newPassword = new SimpleHash(algorithmName, user.getPassword(),
-//				ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
-//		user.setPassword(newPassword);
-//	}
+	public static PasswordEntity encryptPassword(String password) {
+		PasswordEntity passwordAndSalt = new PasswordEntity();
+		RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
+		String salt = randomNumberGenerator.nextBytes().toHex();
+		// 将密码经过散列算法替换成一个不可逆的新密码保存进数据，散列过程使用了盐
+		String newPassword = new SimpleHash(ShiroConstant.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt),
+				ShiroConstant.HASH_ITERATIONS).toHex();
+		passwordAndSalt.setSalt(salt);
+		passwordAndSalt.setPassword(newPassword);
+		return passwordAndSalt;
+	}
+	
+	public static String decryptPassword(String password,String salt) {
+		return new SimpleHash(ShiroConstant.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt),
+				ShiroConstant.HASH_ITERATIONS).toHex();
+	}
+
+	public static void main(String[] args) {
+		User user = new User();
+		user.setPswd("12345");
+		System.err.println(user.getPswd());
+		PasswordEntity passwordAndSalt = PasswordHelper.encryptPassword(user.getPswd());
+		System.err.println(passwordAndSalt.toString());
+		
+		System.err.println(PasswordHelper.decryptPassword("0000", "08923075514e1d7a2161cf6cf9749c57"));
+	}
+
 }
