@@ -26,7 +26,9 @@ import org.springframework.stereotype.Repository;
 
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.gatecm.obsession.entity.Member;
+import com.gatecm.obsession.entity.SysPermission;
 import com.gatecm.obsession.mapper.MemberDao;
+import com.gatecm.obsession.mapper.SysPermissionDao;
 
 /**
  * @Description: TODO()
@@ -40,36 +42,23 @@ public class BasicRealm extends AuthorizingRealm {
 	@Autowired
 	private MemberDao memberDao;
 
+	@Autowired
+	private SysPermissionDao sysPermissionDao;
+
 	/**
 	 * 授权
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		System.out.println("权限认证方法：MyShiroRealm.doGetAuthenticationInfo()");
-		Member user = (Member) SecurityUtils.getSubject().getPrincipal();
-		Long userId = user.getId();
+		Member member = (Member) SecurityUtils.getSubject().getPrincipal();
+		Long memberId = member.getId();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		// 根据用户ID查询角色（role），放入到Authorization里。
-		// Map<String, Object> map = new HashMap<String, Object>();
-		// map.put("user_id", userId);
-		// List<SysRole> roleList = sysRoleService.selectByMap(map);
-		// Set<String> roleSet = new HashSet<String>();
-		// for (SysRole role : roleList) {
-		// roleSet.add(role.getType());
-		// }
-		// 实际开发，当前登录用户的角色和权限信息是从数据库来获取的
-		Set<String> roleSet = new HashSet<String>();
-		roleSet.add("供应商");
-		info.setRoles(roleSet);
-		// 根据用户ID查询权限（permission），放入到Authorization里。
-		/*
-		 * List<SysPermission> permissionList =
-		 * sysPermissionService.selectByMap(map); Set<String> permissionSet =
-		 * new HashSet<String>(); for(SysPermission Permission :
-		 * permissionList){ permissionSet.add(Permission.getName()); }
-		 */
-		Set<String> permissionSet = new HashSet<String>();
-		permissionSet.add("/portals/index");
+		List<SysPermission> permissionList = sysPermissionDao.findByMemberId(memberId);
+		Set<String> permissionSet = new HashSet<>();
+		for (SysPermission Permission : permissionList) {
+			permissionSet.add(Permission.getUrl());
+		}
 		info.setStringPermissions(permissionSet);
 		return info;
 	}
@@ -86,9 +75,9 @@ public class BasicRealm extends AuthorizingRealm {
 			throws AuthenticationException {
 		System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		
+
 		Map<String, Object> columnMap = new HashMap<String, Object>();
-		
+
 		columnMap.put("nickname", token.getUsername());
 		List<Member> users = memberDao.selectByMap(columnMap);
 		Member user;

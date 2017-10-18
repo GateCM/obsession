@@ -12,4 +12,19 @@
 		<result column="is_del" property="isDel" />
 	</resultMap>
 
+	<select id="findByMemberId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		SELECT
+		p.id AS id,
+		p.gmt_create AS gmt_create,
+		p.gmt_modify AS gmt_modify,
+		p.url AS url,
+		p.name AS name,
+		p.is_del AS is_del
+		FROM uc_member_identity mi
+		JOIN sys_identity_permission ip on mi.identity_id = ip.identity_id
+		JOIN sys_permission p on p.id = ip.permission_id
+		WHERE mi.member_id =#{memberId,jdbcType=BIGINT}
+	</select>
+
 </mapper>
