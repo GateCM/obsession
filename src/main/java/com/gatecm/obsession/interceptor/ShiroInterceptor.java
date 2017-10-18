@@ -25,8 +25,7 @@ public class ShiroInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.info(ShiroInterceptor.class.getSimpleName() + "==>preHandle: " + "preHandle:URI [" + request.getRequestURI()
-				+ "], Request Mapping [" + handler + "]");
+		System.err.println("认证授权...");
 		Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated()) {
 			if (!currentUser.isPermitted(request.getRequestURI())) {

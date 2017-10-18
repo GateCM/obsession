@@ -22,7 +22,6 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
 	/**
 	 * 拦截器
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// addPathPatterns 用于添加拦截规则
@@ -30,7 +29,7 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
 //		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page", "/error",
 //				"*.png", "*.js", "*.css");
 		registry.addInterceptor(new ShiroInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/**",
-				"/error/**","/plugin/**","/**/img/**", "/**/fonts/**", "/**/color/**", "/**/js/**", "/**/css/**");
+				"/error/**","/vcode/**","/plugin/**","/**/img/**", "/**/fonts/**", "/**/color/**", "/**/js/**", "/**/css/**");
 		super.addInterceptors(registry);
 	}
 

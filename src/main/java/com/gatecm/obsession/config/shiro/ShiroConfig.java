@@ -48,7 +48,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
 		filterChainDefinitionMap.put("/plugin/**", "anon");
-		filterChainDefinitionMap.put("/login", "anon");
+		filterChainDefinitionMap.put("/login/**", "anon");
+		filterChainDefinitionMap.put("/vcode/**", "anon");
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/add", "perms[权限添加]");

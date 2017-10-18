@@ -16,7 +16,13 @@ import org.apache.shiro.util.ByteSource;
  */
 public class PasswordHelper {
 
-	public static PasswordEntity encryptPassword(String password) {
+	/**
+	 * 密码加密,使用随机salt
+	 * 
+	 * @param password
+	 * @return
+	 */
+	public PasswordEntity encryptPassword(String password) {
 		PasswordEntity passwordAndSalt = new PasswordEntity();
 		RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 		String salt = randomNumberGenerator.nextBytes().toHex();
@@ -28,15 +34,23 @@ public class PasswordHelper {
 		return passwordAndSalt;
 	}
 
-	public static String decryptPassword(String password, String salt) {
+	/**
+	 * 密码加密
+	 * 
+	 * @param password
+	 * @param salt
+	 * @return
+	 */
+	public String encryptPassword(String password, String salt) {
 		return new SimpleHash(ShiroConstant.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt),
 				ShiroConstant.HASH_ITERATIONS).toHex();
 	}
 
 	public static void main(String[] args) {
-		PasswordEntity passwordAndSalt = PasswordHelper.encryptPassword("12345");
+		PasswordHelper passwordHelper = new PasswordHelper();
+		PasswordEntity passwordAndSalt = passwordHelper.encryptPassword("12345");
 		System.err.println(passwordAndSalt.toString());
-		System.err.println(PasswordHelper.decryptPassword("0000", "08923075514e1d7a2161cf6cf9749c57"));
+		System.err.println(passwordHelper.encryptPassword("0000", "08923075514e1d7a2161cf6cf9749c57"));
 	}
 
 }
