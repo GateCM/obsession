@@ -19,4 +19,31 @@
 		<result column="is_del" property="isDel" />
 	</resultMap>
 
+	<resultMap id="DTOResultMap" extends="BaseResultMap"
+		type="com.gatecm.obsession.dto.ModelTreeDTO">
+	</resultMap>
+
+	<select id="getModelTreesByMemberId" parameterType="java.lang.Long"
+		resultMap="DTOResultMap">
+		SELECT
+		m.id AS id,
+		m.name AS name,
+		m.style AS style,
+		m.sort_order AS
+		sort_order,
+		m.show_name AS show_name,
+		m.is_has_son AS is_has_son,
+		m.parent_model_id AS parent_model_id,
+		m.link_url AS link_url,
+		m.is_new_blank AS is_new_blank
+		FROM uc_member_identity mi
+		JOIN
+		sys_identity_model im ON im.identity_id = mi.identity_id
+		JOIN sys_model
+		m ON m.id=im.model_id
+		WHERE mi.member_id=#{memberId,jdbcType=BIGINT}
+		ORDER BY
+		sort_order
+	</select>
+
 </mapper>

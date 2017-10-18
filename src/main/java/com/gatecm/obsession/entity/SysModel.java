@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -21,70 +20,69 @@ import java.io.Serializable;
 @TableName("sys_model")
 public class SysModel extends Model<SysModel> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键ID
-     */
-	@TableId(value="id", type= IdType.AUTO)
+	/**
+	 * 主键ID
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
 	private Long id;
-    /**
-     * 修改时间
-     */
+	/**
+	 * 修改时间
+	 */
 	@TableField("gmt_modify")
 	private Date gmtModify;
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	@TableField("gmt_create")
 	private Date gmtCreate;
-    /**
-     * 模型名称
-     */
+	/**
+	 * 模型名称
+	 */
 	private String name;
-    /**
-     * 模型类型
-     */
+	/**
+	 * 模型类型
+	 */
 	private String type;
-    /**
-     * 模型样式
-     */
+	/**
+	 * 模型样式
+	 */
 	private String style;
-    /**
-     * 排序，升序排列
-     */
+	/**
+	 * 排序，升序排列
+	 */
 	private Integer order;
-    /**
-     * 模型显示名称
-     */
+	/**
+	 * 模型显示名称
+	 */
 	@TableField("show_name")
 	private String showName;
-    /**
-     * 是否有子节点
-     */
+	/**
+	 * 是否有子节点
+	 */
 	@TableField("is_has_son")
-	private Integer isHasSon;
-    /**
-     * 父节点id
-     */
+	private Boolean isHasSon;
+	/**
+	 * 父节点id
+	 */
 	@TableField("parent_model_id")
 	private Long parentModelId;
-    /**
-     * 模型对应跳转url
-     */
+	/**
+	 * 模型对应跳转url
+	 */
 	@TableField("link_url")
 	private String linkUrl;
-    /**
-     * 是否开启新页面
-     */
+	/**
+	 * 是否开启新页面
+	 */
 	@TableField("is_new_blank")
-	private Integer isNewBlank;
-    /**
-     * 是否已删除
-     */
+	private Boolean isNewBlank;
+	/**
+	 * 是否已删除
+	 */
 	@TableField("is_del")
-	private Integer isDel;
-
+	private Boolean isDel;
 
 	public Long getId() {
 		return id;
@@ -150,11 +148,11 @@ public class SysModel extends Model<SysModel> {
 		this.showName = showName;
 	}
 
-	public Integer getIsHasSon() {
+	public Boolean getIsHasSon() {
 		return isHasSon;
 	}
 
-	public void setIsHasSon(Integer isHasSon) {
+	public void setIsHasSon(Boolean isHasSon) {
 		this.isHasSon = isHasSon;
 	}
 
@@ -174,19 +172,19 @@ public class SysModel extends Model<SysModel> {
 		this.linkUrl = linkUrl;
 	}
 
-	public Integer getIsNewBlank() {
+	public Boolean getIsNewBlank() {
 		return isNewBlank;
 	}
 
-	public void setIsNewBlank(Integer isNewBlank) {
+	public void setIsNewBlank(Boolean isNewBlank) {
 		this.isNewBlank = isNewBlank;
 	}
 
-	public Integer getIsDel() {
+	public Boolean getIsDel() {
 		return isDel;
 	}
 
-	public void setIsDel(Integer isDel) {
+	public void setIsDel(Boolean isDel) {
 		this.isDel = isDel;
 	}
 
@@ -197,20 +195,9 @@ public class SysModel extends Model<SysModel> {
 
 	@Override
 	public String toString() {
-		return "SysModel{" +
-			", id=" + id +
-			", gmtModify=" + gmtModify +
-			", gmtCreate=" + gmtCreate +
-			", name=" + name +
-			", type=" + type +
-			", style=" + style +
-			", order=" + order +
-			", showName=" + showName +
-			", isHasSon=" + isHasSon +
-			", parentModelId=" + parentModelId +
-			", linkUrl=" + linkUrl +
-			", isNewBlank=" + isNewBlank +
-			", isDel=" + isDel +
-			"}";
+		return "SysModel{" + ", id=" + id + ", gmtModify=" + gmtModify + ", gmtCreate=" + gmtCreate + ", name=" + name
+				+ ", type=" + type + ", style=" + style + ", order=" + order + ", showName=" + showName + ", isHasSon="
+				+ isHasSon + ", parentModelId=" + parentModelId + ", linkUrl=" + linkUrl + ", isNewBlank=" + isNewBlank
+				+ ", isDel=" + isDel + "}";
 	}
 }

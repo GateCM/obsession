@@ -17,4 +17,15 @@
 		<result column="is_del" property="isDel" />
 	</resultMap>
 
+
+	<select id="selectByPhoneNumber" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM uc_member
+		WHERE
+		phone_number=#{phoneNumber,jdbcType=VARCHAR}
+		and is_del = 0
+	</select>
+
 </mapper>

@@ -35,6 +35,8 @@ spring:
     multipart:
       max-file-size: 100Mb
       max-request-size: 1000Mb
+  jackson:
+    default-property-inclusion: non-null
             
     
 #mybatis
