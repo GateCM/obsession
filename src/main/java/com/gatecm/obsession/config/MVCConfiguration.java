@@ -28,7 +28,7 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
 		// excludePathPatterns 用于排除拦截
 //		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page", "/error",
 //				"*.png", "*.js", "*.css");
-		registry.addInterceptor(new ShiroInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/**",
+		registry.addInterceptor(new ShiroInterceptor()).addPathPatterns("/**.s").excludePathPatterns("/login/**",
 				"/error/**","/vcode/**","/plugin/**","/**/img/**", "/**/fonts/**", "/**/color/**", "/**/js/**", "/**/css/**");
 		super.addInterceptors(registry);
 	}

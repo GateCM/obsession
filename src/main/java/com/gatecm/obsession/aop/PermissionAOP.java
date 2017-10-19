@@ -56,8 +56,11 @@ public class PermissionAOP {
 			Member user = (Member) SecurityUtils.getSubject().getPrincipal();
 			Map<String, Object> map = (Map<String, Object>) keys;
 			map.put(CURRENT_MODEL_KEY, getCurrentModelValue());
-			map.put(MODEL_TREE_ROOT_KEY, memberService.getModelTreeBymemberId(user.getId()));
+			if (user != null) {
+				map.put(MODEL_TREE_ROOT_KEY, memberService.getModelTreeBymemberId(user.getId()));
+			}
 			System.out.println("第一个后置返回通知的返回值：" + keys);
+
 		}
 	}
 

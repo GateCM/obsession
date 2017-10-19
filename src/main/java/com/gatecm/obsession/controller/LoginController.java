@@ -38,7 +38,7 @@ public class LoginController {
 	public Map<String, Object> login(String userName, String password) {
 		Map<String, Object> map = new HashMap<>();
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-		// 获取当前的Subject+
+		// 获取当前的Subject
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);

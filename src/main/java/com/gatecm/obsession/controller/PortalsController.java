@@ -4,7 +4,6 @@
 package com.gatecm.obsession.controller;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-@RequestMapping(value = "/portals")
+@RequestMapping(value = "/user/portals")
 public class PortalsController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -29,8 +28,8 @@ public class PortalsController {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
 
-		System.err.println(session.getHost());
-		System.err.println(session.getId());
+//		System.err.println(session.getHost());
+//		System.err.println(session.getId());
 
 		modelAndView.addObject("test", "hello");
 		modelAndView.setViewName("portals/index");
