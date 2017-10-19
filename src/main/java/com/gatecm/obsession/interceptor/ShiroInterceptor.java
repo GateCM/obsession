@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @Description: TODO()
  * @author chenxiaohui
- * @date 2017年10月11日 上午10:14:08
+ * @date 2017年10月19日 下午2:08:45
  *
  */
 public class ShiroInterceptor implements HandlerInterceptor {
@@ -25,14 +25,14 @@ public class ShiroInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.err.println("认证授权...");
+		log.info(this.getClass().getSimpleName() + ":认证授权...");
 		Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated()) {
 			if (!currentUser.isPermitted(request.getRequestURI())) {
 				response.sendRedirect("/error/nopermission");
 			}
 		} else {
-			response.sendRedirect("/login/page");
+			response.sendRedirect("/error/unauthorized");
 		}
 		return true;
 	}

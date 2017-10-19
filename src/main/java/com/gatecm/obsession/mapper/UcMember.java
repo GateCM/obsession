@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author chenxiaohui
  * @since 2017-10-17
  */
-public interface MemberDao extends BaseMapper<Member> {
+public interface UcMember extends BaseMapper<Member> {
 
 	/**
 	 * 根据注册手机号获取用户信息

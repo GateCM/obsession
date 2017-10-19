@@ -2,7 +2,7 @@ package com.gatecm.obsession.service.impl;
 
 import com.gatecm.obsession.dto.ModelTreeDTO;
 import com.gatecm.obsession.entity.Member;
-import com.gatecm.obsession.mapper.MemberDao;
+import com.gatecm.obsession.mapper.UcMember;
 import com.gatecm.obsession.mapper.SysModelDao;
 import com.gatecm.obsession.service.MemberService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -22,13 +22,13 @@ import org.springframework.stereotype.Service;
  * @since 2017-10-17
  */
 @Service
-public class MemberServiceImpl extends ServiceImpl<MemberDao, Member> implements MemberService {
+public class MemberServiceImpl extends ServiceImpl<UcMember, Member> implements MemberService {
 
 	@Autowired
 	private SysModelDao sysModelDao;
 
 	@Autowired
-	private MemberDao memberDao;
+	private UcMember memberDao;
 
 	@Override
 	public ModelTreeDTO getModelTreeBymemberId(Long memberId) {

@@ -52,7 +52,7 @@ public class SysModel extends Model<SysModel> {
 	/**
 	 * 排序，升序排列
 	 */
-	private Integer order;
+	private Integer sortOrder;
 	/**
 	 * 模型显示名称
 	 */
@@ -132,12 +132,12 @@ public class SysModel extends Model<SysModel> {
 		this.style = style;
 	}
 
-	public Integer getOrder() {
-		return order;
+	public Integer getSortOrder() {
+		return sortOrder;
 	}
 
-	public void setOrder(Integer order) {
-		this.order = order;
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
 	public String getShowName() {
@@ -196,7 +196,7 @@ public class SysModel extends Model<SysModel> {
 	@Override
 	public String toString() {
 		return "SysModel{" + ", id=" + id + ", gmtModify=" + gmtModify + ", gmtCreate=" + gmtCreate + ", name=" + name
-				+ ", type=" + type + ", style=" + style + ", order=" + order + ", showName=" + showName + ", isHasSon="
+				+ ", type=" + type + ", style=" + style + ", sortOrder=" + sortOrder + ", showName=" + showName + ", isHasSon="
 				+ isHasSon + ", parentModelId=" + parentModelId + ", linkUrl=" + linkUrl + ", isNewBlank=" + isNewBlank
 				+ ", isDel=" + isDel + "}";
 	}

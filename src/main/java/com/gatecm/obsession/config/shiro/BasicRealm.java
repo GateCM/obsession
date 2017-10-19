@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.gatecm.obsession.entity.Member;
 import com.gatecm.obsession.entity.SysPermission;
-import com.gatecm.obsession.mapper.MemberDao;
+import com.gatecm.obsession.mapper.UcMember;
 import com.gatecm.obsession.mapper.SysPermissionDao;
 
 /**
@@ -40,7 +40,7 @@ import com.gatecm.obsession.mapper.SysPermissionDao;
 public class BasicRealm extends AuthorizingRealm {
 
 	@Autowired
-	private MemberDao memberDao;
+	private UcMember memberDao;
 
 	@Autowired
 	private SysPermissionDao sysPermissionDao;
