@@ -14,12 +14,11 @@ import java.util.Date;
 public interface VcodeService {
 
 	// 短信验证码发送
-	boolean sendSMS(String phoneNumber);
+	ResultEntity sendSMS(String phoneNumber, String imgCode);
 
 	// 获取验证码发送时间
 	Date getSendTime(String phoneNumber);
 
 	// 短信验证码验证
 	ResultEntity validation(String phoneNumber, String vcode);
-
 }

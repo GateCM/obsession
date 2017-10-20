@@ -8,10 +8,13 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.gatecm.obsession.error.APIErrorEnum;
+import com.gatecm.obsession.error.ErrorEntity;
 import com.gatecm.obsession.error.ErrorUtils;
 import com.gatecm.obsession.service.ResultEntity;
 import com.gatecm.obsession.service.VcodeService;
 import com.gatecm.obsession.sms.SMSManager;
+import com.gatecm.obsession.sms.vcode.ErrorVCodeEnum;
+import com.gatecm.obsession.sms.vcode.VCodeBean;
 import com.gatecm.obsession.sms.vcode.VcodeEnum;
 
 /**
@@ -24,8 +27,19 @@ import com.gatecm.obsession.sms.vcode.VcodeEnum;
 public class VcodeServiceImpl implements VcodeService {
 
 	@Override
-	public boolean sendSMS(String phoneNumber) {
-		return SMSManager.getInstance().sendVCodeSMS(phoneNumber);
+	public ResultEntity sendSMS(String phoneNumber, String imgCode) {
+		ResultEntity resultEntity = new ResultEntity(false);
+		boolean isSendSuccess = SMSManager.getInstance().sendVCodeSMSWithTrack(phoneNumber, imgCode);
+		VCodeBean codeBean = SMSManager.getInstance().getVCodeBean(phoneNumber);
+		if (isSendSuccess) {
+			resultEntity.setSuccess(true);
+		} else {
+			ErrorVCodeEnum errorCode = codeBean.getErrorCode();
+			ErrorEntity errorEntity = new ErrorEntity(errorCode.getCode(), errorCode.getMsg());
+			resultEntity.setError(errorEntity);
+		}
+		resultEntity.setValue(codeBean);// 返回短信实体
+		return resultEntity;
 	}
 
 	@Override

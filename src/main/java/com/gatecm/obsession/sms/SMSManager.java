@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.gatecm.obsession.sms;
 
 import java.io.UnsupportedEncodingException;
@@ -11,7 +8,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
+import com.gatecm.obsession.sms.vcode.ErrorVCodeEnum;
+import com.gatecm.obsession.sms.vcode.ImgCodeManager;
 import com.gatecm.obsession.sms.vcode.MD5Gen;
 import com.gatecm.obsession.sms.vcode.VCodeBean;
 import com.gatecm.obsession.sms.vcode.VcodeEnum;
@@ -41,7 +41,8 @@ public class SMSManager {
 	private static final String SEPARATOR = ",";
 	private static final String SEND_SUCCESS = "1";// 成功标志
 
-	private static final Long SEND_INTERVAL = 1L;// 发送间隔，单位 min
+	private static final int SEND_TIMES_MAX = 4;// 短信发送临界值，超过5次则使用图形验证码
+	private static final Long SEND_INTERVAL = 0L;// 发送间隔，单位 min
 	private static final Long OVERDUE_TIME = 5L;// 验证码过期时间，单位 min
 
 	private Map<String, VCodeBean> phoneNumberVCodeMap = new HashMap<>();
@@ -61,22 +62,41 @@ public class SMSManager {
 	 * @param phoneNumber
 	 * @return
 	 */
-	public boolean sendVCodeSMS(String phoneNumber) {
+	public boolean sendVCodeSMSWithTrack(String phoneNumber, String imgCode) {
 		Date current = new Date();
-		// 判断手机号对应验证码状态
 		VCodeBean vCodeBean = phoneNumberVCodeMap.get(phoneNumber);
-		if (vCodeBean == null || vCodeBean.getInterval(current) >= SEND_INTERVAL) {
-			// 生成验证码
-			String vcode = createRandomVcode();
-			// 发送验证码
-			if (sendVCodeSMS(phoneNumber, vcode)) {
-				// 建立手机号验证码映射
-				phoneNumberVCodeMap.put(phoneNumber, new VCodeBean(vcode, current));
-				log.info("==发送验证码成功," + phoneNumber + SEPARATOR + vcode);
-				return true;
-			}
+		// 首次发送
+		if (vCodeBean == null) {
+			vCodeBean = new VCodeBean();
+			vCodeBean.setSendTimes(0);
+			phoneNumberVCodeMap.put(phoneNumber, vCodeBean);
 		}
-		return false;
+		// 再次发送，判断请求间隔
+		if (vCodeBean.getInterval(current) < SEND_INTERVAL) {
+			vCodeBean.setErrorCode(ErrorVCodeEnum.VCODE_REQUST_SMS_WAIT);
+			return false;
+		}
+
+		// 判断请求次数和图形验证码是否正确
+		if (vCodeBean.getSendTimes() > SEND_TIMES_MAX
+				&& !ImgCodeManager.getInstance().validation(phoneNumber, imgCode).equals(VcodeEnum.VCODE_CORRECT)) {
+			vCodeBean.setErrorCode(ErrorVCodeEnum.VCODE_REQUST_IMG_INCORRECT);
+			return false;
+		}
+		// 生成验证码
+		String vcode = createRandomVcode();
+		// 发送验证码
+		if (sendVCodeSMS(phoneNumber, vcode)) {
+			vCodeBean.setSendDate(current);
+			vCodeBean.setVCode(vcode);
+			// 增加短信发送次数
+			vCodeBean.addSendTimes();
+			log.info("==发送验证码成功," + phoneNumber + SEPARATOR + vcode);
+			return true;
+		} else {
+			vCodeBean.setErrorCode(ErrorVCodeEnum.VCODE_REQUST_SMS_SEND_FAIL);
+			return false;
+		}
 	}
 
 	/**
@@ -163,24 +183,26 @@ public class SMSManager {
 	}
 
 	/**
+	 * 短信验证码验证
 	 * 
 	 * @param phoneNumber
 	 * @param vcode
-	 * @return 0:验证码错误；2：验证码超时；1：验证通过
+	 * @return
 	 */
-	public VcodeEnum validation(String phoneNumber, String vcode) {
-		VcodeEnum flag;
+	public VcodeEnum validation(String phoneNumber, String vCode) {
+		if (StringUtils.isEmpty(vCode)) {
+			return VcodeEnum.VCODE_ERROR;
+		}
 		VCodeBean vCodeBean = phoneNumberVCodeMap.get(phoneNumber);
-		if (vCodeBean != null && vCodeBean.getVcode().equals(vcode)) {
+		if (vCodeBean != null && vCode.equals(vCodeBean.getVCode())) {
 			if (vCodeBean.getInterval(new Date()) < OVERDUE_TIME) {
-				flag = VcodeEnum.VCODE_CORRECT;
+				return VcodeEnum.VCODE_CORRECT;
 			} else {
-				flag = VcodeEnum.VCODE_TIME_OUT;
+				return VcodeEnum.VCODE_TIME_OUT;
 			}
 		} else {
-			flag = VcodeEnum.VCODE_ERROR;
+			return VcodeEnum.VCODE_ERROR;
 		}
-		return flag;
 	}
 
 	/**
@@ -190,5 +212,15 @@ public class SMSManager {
 	 */
 	public void removeVcodeByPhoneNumber(String phoneNumber) {
 		phoneNumberVCodeMap.remove(phoneNumber);
+	}
+
+	/**
+	 * 获取短信发送实体
+	 * 
+	 * @param phoneNumber
+	 * @return
+	 */
+	public VCodeBean getVCodeBean(String phoneNumber) {
+		return phoneNumberVCodeMap.get(phoneNumber);
 	}
 }

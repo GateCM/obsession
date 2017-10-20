@@ -3,7 +3,7 @@ package com.gatecm.obsession.sms.vcode;
 /**
  * @Description: TODO(验证码常量)
  * @author chenxiaohui
- * @date 2017年4月30日 下午15:13:50
+ * @date 2017年10月20日 下午6:19:08
  *
  */
 public enum VcodeEnum {
