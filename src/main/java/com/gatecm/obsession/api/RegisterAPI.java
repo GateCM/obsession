@@ -31,7 +31,7 @@ public class RegisterAPI {
 	@Autowired
 	private VcodeService vcodeService;
 
-	@Autowired
+//	@Autowired
 	// private UcMemberService ucMemberService;
 
 	/**
@@ -40,13 +40,13 @@ public class RegisterAPI {
 	 * @param mobile
 	 * @return
 	 */
-//	@RequestMapping(value = "/mobile/verify", method = RequestMethod.GET)
-//	public Map<String, Object> mobileVerify(String mobile) {
-//		Map<String, Object> map = new HashMap<>();
-//		// ResultEntity result = ucMemberService.isMobileRegistered(mobile);
-//		// map.put(EnumResponseParam.IS_EXIST.getValue(), result.getValue());
-//		return map;
-//	}
+	@RequestMapping(value = "/mobile/verify", method = RequestMethod.GET)
+	public Map<String, Object> mobileVerify(String mobile) {
+		Map<String, Object> map = new HashMap<>();
+		// ResultEntity result = ucMemberService.isMobileRegistered(mobile);
+		// map.put(EnumResponseParam.IS_EXIST.getValue(), result.getValue());
+		return map;
+	}
 
 	/**
 	 * 发送短信验证码
