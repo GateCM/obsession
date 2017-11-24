@@ -23,6 +23,7 @@ public class ShiroInterceptor implements HandlerInterceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(ShiroInterceptor.class);
 
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info(this.getClass().getSimpleName() + ":认证授权...");

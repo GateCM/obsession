@@ -151,7 +151,7 @@ public class ImgCodeGenerator {
 	public static void main(String[] args) {
 		ImgCodeGenerator vCode = new ImgCodeGenerator(160, 40, 5, 150);
 		try {
-			String path = "D:/" + new Date().getTime() + ".png";
+			String path = "D:/" + System.currentTimeMillis() + ".png";
 			System.out.println(vCode.getCode() + " >" + path);
 			vCode.write(path);
 		} catch (IOException e) {

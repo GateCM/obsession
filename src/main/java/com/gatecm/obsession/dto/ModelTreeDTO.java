@@ -40,4 +40,9 @@ public class ModelTreeDTO extends SysModel {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "ModelTreeDTO [childModels=" + childModels + "]";
+	}
+
 }

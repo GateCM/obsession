@@ -29,7 +29,7 @@ public class ObsessionApplicationTests extends TestCase {
 	}
 
 	@Test
-	public void ShiroLogin() {
+	public void shiroLogin() {
 		// 1、获取SecurityManager工厂，此处使用Ini配置文件初始化SecurityManager
 		Factory<org.apache.shiro.mgt.SecurityManager> factory = new IniSecurityManagerFactory(
 				"classpath:shiro-jdbc-realm.ini");

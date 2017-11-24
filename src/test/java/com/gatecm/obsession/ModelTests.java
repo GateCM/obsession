@@ -19,7 +19,7 @@ public class ModelTests extends TestCase {
 	private MemberService memberService;
 
 	@Test
-	public void ShiroLogin() {
+	public void shiroLogin() {
 		String phoneNumber = "15688745645";
 		ModelTreeDTO modelTreeDTO = memberService.getModelTreeByPhoneNumber(phoneNumber);
 		modelTreeDTO.print("     ");

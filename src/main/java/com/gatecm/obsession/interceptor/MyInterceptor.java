@@ -23,6 +23,7 @@ public class MyInterceptor implements HandlerInterceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(MyInterceptor.class);
 
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info(MyInterceptor.class.getSimpleName() + "==>preHandle: " + "preHandle:URI [" + request.getRequestURI()

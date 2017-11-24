@@ -56,8 +56,8 @@ public class BasicRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		List<SysPermission> permissionList = sysPermissionDao.findByMemberId(memberId);
 		Set<String> permissionSet = new HashSet<>();
-		for (SysPermission Permission : permissionList) {
-			permissionSet.add(Permission.getUrl());
+		for (SysPermission permission : permissionList) {
+			permissionSet.add(permission.getUrl());
 		}
 		info.setStringPermissions(permissionSet);
 		return info;

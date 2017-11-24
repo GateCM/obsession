@@ -21,7 +21,7 @@ import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.springframework.beans.factory.BeanInitializationException;
 
-import com.gatecm.obsession.config.MyShiroHttpServletResponse;
+import com.gatecm.obsession.config.shiro.MyShiroHttpServletResponse;
 
 /**
  * @Description: TODO()
@@ -100,8 +100,9 @@ public class MyShiroFilterFactoryBean extends ShiroFilterFactoryBean {
 			int idx = 0;
 			if ((idx = str.indexOf(".")) > 0) {
 				str = str.substring(idx);
-				if (ignoreExt.contains(str.toLowerCase()))
+				if (ignoreExt.contains(str.toLowerCase())) {
 					flag = false;
+				}
 			}
 			if (flag) {
 				super.doFilterInternal(servletRequest, servletResponse, chain);

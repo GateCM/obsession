@@ -6,6 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
+/**
+ * @Description: TODO()
+ * @author chenxiaohui
+ * @date 2017年10月31日 上午10:16:02
+ *
+ */
 //该 @SpringBootApplication 注解等价于以默认属性使用:
 //@Configuration
 //@EnableAutoConfiguration
