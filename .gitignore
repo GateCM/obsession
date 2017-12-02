@@ -1,12 +1,20 @@
-<<<<<<< HEAD
-# Compiled class file
-*.class
 
-# bak file
-*.bak
+/*.iml
+/*/*.iml
 
-# Log file
-*.log
+*.sublime-project
+*.sublime-workspace
+
+target/
+.classpath
+.project
+.settings/
+/*/target/
+/*/.classpath
+/*/.project
+/*/bin/
+/*/logs/
+/*/.factorypath
 
 # BlueJ files
 *.ctxt
@@ -21,38 +29,3 @@
 *.zip
 *.tar.gz
 *.rar
-
-#target
-target/
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-=======
-# Compiled class file
-*.class
-
-# target dir
-target/
-
-# bak file
-*.bak
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
->>>>>>> refs/remotes/origin/gate
-hs_err_pid*
